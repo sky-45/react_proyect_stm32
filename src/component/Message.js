@@ -1,6 +1,6 @@
 import React from 'react'
-import Chart_sensor from './ChartSensor';
-import Acel_chart from './AcelChart';
+import ChartSensor from './ChartSensor';
+import AcelChart from './AcelChart';
 //
 export default function Message() {
     return (
