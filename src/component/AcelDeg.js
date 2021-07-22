@@ -5,33 +5,28 @@ import createPlotlyComponent from 'react-plotly.js/factory';
 
 const Plot = createPlotlyComponent(Plotly);
 
-class AcelChart extends React.Component {    
+class AcelDeg extends React.Component {    
   
   state = {
     line1: {
       x: [],
       y: [],
-      name: 'Valor de X',
+      name: 'Pitch',
       //fill: 'tozeroy',
     },
     line2: {
         x: [],
         y: [],
-        name: 'Valor de Y',
+        name: 'Roll',
         //fill: 'tozeroy',
       },
-      line3: {
-        x: [],
-        y: [],
-        name: 'Valor de Z',
-        //fill: 'tozeroy',
-      },
+
         
     layout: {
       datarevision: 0,
-      width: 1200, height: 300, 
-      yaxis: { autorange: false, range: [-130, 130] },
-      title: 'Voltaje medido por el Acelerometro',
+      width: 1200, height: 500, 
+      yaxis: { autorange: false, range: [-180,180] },
+      title: 'Grado de pitch y roll',
     },
     revision: 0,
   }
@@ -48,7 +43,7 @@ class AcelChart extends React.Component {
         //this.state.line1.y.push((persons["value"]*3.3)/255);
         var now_date = new Date();
         var now_time = now_date.toISOString();
-        
+        // values of X, Y and Z
         var x_val = persons["valueX"];
         var y_val = persons["valueY"];
         var z_val = persons["valueZ"];
@@ -61,15 +56,32 @@ class AcelChart extends React.Component {
         if(z_val > 127) {
             z_val = z_val - 256;
         }
-        
+        // sign of zval
+        var z_sign = 0;
+        if(z_val >= 0) {
+            z_sign = 1;
+        }
+        else {
+            z_sign = -1;
+        }
+        // sign of y
+
+        //calculate pitch angle
+        const pitch = Math.atan2(x_val, z_sign*Math.sqrt(Math.pow(y_val, 2) + Math.pow(z_val, 2)));
+        //calculate roll angle
+        const roll = Math.atan2(y_val, z_sign*Math.sqrt(Math.pow(x_val, 2) + Math.pow(z_val, 2)));
+        // print pitch angle in degrees
+        const pitch_deg = (pitch * 180) / Math.PI;
+        // print roll angle in degrees
+        const roll_deg = (roll * 180) / Math.PI;
+        //console.log(pitch_deg, roll_deg);
+
         this.state.line1.x.push(now_time);
-        this.state.line1.y.push(x_val);
+        this.state.line1.y.push(pitch_deg);
 
         this.state.line2.x.push(now_time);
-        this.state.line2.y.push(y_val);
-        
-        this.state.line3.x.push(now_time);
-        this.state.line3.y.push(z_val);
+        this.state.line2.y.push(roll_deg);
+
         try{
           const temp = this.state.line1.x.length;
          if(temp > 10){
@@ -77,8 +89,6 @@ class AcelChart extends React.Component {
             this.state.line1.y.shift();
             this.state.line2.x.shift();
             this.state.line2.y.shift();
-            this.state.line3.x.shift();
-            this.state.line3.y.shift();
             
           }
         }catch(e){
@@ -96,7 +106,6 @@ class AcelChart extends React.Component {
           data={[
                 this.state.line1,
                 this.state.line2,
-                this.state.line3,
                 
           ]}
           layout={this.state.layout}
@@ -108,5 +117,5 @@ class AcelChart extends React.Component {
     }
   }
   
-export default AcelChart;
+export default AcelDeg;
 

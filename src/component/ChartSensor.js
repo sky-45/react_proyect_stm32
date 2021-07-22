@@ -22,21 +22,26 @@ class ChartSensor extends React.Component {
     revision: 0,
   }
   componentDidMount() {
-    setInterval(this.increaseGraphic, 2000);
+    setInterval(this.increaseGraphic, 800);
   } 
 
   increaseGraphic = () => { 
     const { line1, layout, revision } = this.state;
-    //axios.get('http://127.0.0.1:8000/rand_continue_adc')
+    //axios.get('http://127.0.0.1:8000/last_adc')
     axios.get('https://sensor-ms-fastapi.herokuapp.com/last_adc')
     //axios.get('https://sensor-ms-fastapi.herokuapp.com/rand_continue_adc')
     
       .then(res => {
         const persons = res.data;
-        this.state.line1.x.push(persons["datetime"]);
+        const temp_chk = persons["datetime"];
+        //console.log(temp_chk+"aaa")
+        var now_date = new Date();
+        var now_time = now_date.toISOString();
+        
+        this.state.line1.x.push(now_time);
         this.state.line1.y.push((persons["value"]*3.3)/255);
         //this.state.line1.y.push(persons["value"]);
-        console.log(persons["datetime"],persons["value"]);
+        
         try{
           const temp = this.state.line1.x.length;
          if(temp > 5){
