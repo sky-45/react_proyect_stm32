@@ -1,13 +1,13 @@
 import React from 'react'
-import Chart_sensor from './Chart_sensor';
-import Acel_chart from './Acel_chart';
+import Chart_sensor from './ChartSensor';
+import Acel_chart from './AcelChart';
 //
 export default function Message() {
     return (
         <div>
             <p>Medidas de sensores</p>
-            <Chart_sensor/>
-            <Acel_chart/>
+            <ChartSensor/>
+            <AcelChart/>
             
             
         </div>

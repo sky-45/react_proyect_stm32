@@ -4,7 +4,7 @@ import Plotly from "plotly.js"
 import createPlotlyComponent from 'react-plotly.js/factory';
 
 const Plot = createPlotlyComponent(Plotly);
-class Chart_sensor extends React.Component {    
+class ChartSensor extends React.Component {    
   
   state = {
     line1: {
@@ -15,7 +15,7 @@ class Chart_sensor extends React.Component {
     },
     layout: {
       datarevision: 0,
-      width: 1200, height: 300, title: 'Test plot',
+      width: 1200, height: 300, 
       yaxis: { autorange: false, range: [0, 4] },
       title: 'Voltaje medido por el ADC',
     },
@@ -67,5 +67,5 @@ class Chart_sensor extends React.Component {
     }
   }
   
-export default Chart_sensor;
+export default ChartSensor;
 

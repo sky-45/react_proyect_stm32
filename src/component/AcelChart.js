@@ -5,7 +5,7 @@ import createPlotlyComponent from 'react-plotly.js/factory';
 
 const Plot = createPlotlyComponent(Plotly);
 
-class Acel_chart extends React.Component {    
+class AcelChart extends React.Component {    
   
   state = {
     line1: {
@@ -29,7 +29,7 @@ class Acel_chart extends React.Component {
         
     layout: {
       datarevision: 0,
-      width: 1200, height: 300, title: 'Test plot',
+      width: 1200, height: 300, 
       yaxis: { autorange: false, range: [0, 255] },
       title: 'Voltaje medido por el Acelerometro',
     },
@@ -93,5 +93,5 @@ class Acel_chart extends React.Component {
     }
   }
   
-export default Acel_chart;
+export default AcelChart;
 
